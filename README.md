@@ -108,10 +108,12 @@ Provides aggregated data for frontend dashboards:
 
 * `POST /api/auth/login` → User login
 for the first time use the above API with the request:
+
  {
   "email": "admin@gmail.com",
   "password": "admin123"
 }
+
  this will return the token in response, use this token in the header to create other users as below:
  * `POST /api/users` → create user
  * `Get /api/users` → get all users
@@ -235,6 +237,7 @@ Since all user creation APIs are protected, we use a seed script to bootstrap th
 
 ▶️ Run the script:
 node seedAdmin.js
+
  this create the first user who will be the admin, then use the login api with request:
  {
   "email": "admin@gmail.com",
