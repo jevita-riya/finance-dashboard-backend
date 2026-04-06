@@ -1,5 +1,7 @@
+require("dotenv").config();
 const mysql = require("mysql2/promise");
-const db = require("../db/dbConfig"); 
+const bcrypt = require("bcrypt");
+const db = require("./db/dbConfig"); 
 
 
 const seedAdmin = async () => {
