@@ -181,8 +181,55 @@ DB_USER=root
 DB_PASSWORD=""
 DB_NAME=finance
 ```
+### 4. Setup MySQL Database
 
-### 4. Run the server
+Make sure your MySQL server is running (XAMPP / MySQL Workbench).
+
+> ⚠️ If your MySQL runs on a different port (e.g., 3307), add this to your `.env` file:
+```env
+DB_PORT=3307
+```
+
+#### Create Database
+CREATE DATABASE finance;
+
+#### Create Tables
+Users Table: 
+
+CREATE TABLE users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin','analyst','viewer') DEFAULT 'viewer',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Records Table:
+
+CREATE TABLE records (
+  record_id INT AUTO_INCREMENT PRIMARY KEY,
+  amount DECIMAL(10,2) NOT NULL,
+  type ENUM('income','expense') NOT NULL,
+  category VARCHAR(100),
+  date DATE NOT NULL,
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+###  5. Seed Initial Admin User
+
+Before starting the server, you need to create the first admin user.
+
+Since all user creation APIs are protected, we use a seed script to bootstrap the system.
+
+➤ Create seedAdmin.js in project root
+
+▶️ Run the script:
+node seedAdmin.js
+
+
+### 5. Run the server
 
 ```bash
 npm start
