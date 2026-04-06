@@ -206,6 +206,7 @@ CREATE TABLE users (
 );
 
 Records Table:
+
 CREATE TABLE records (
   record_id INT AUTO_INCREMENT PRIMARY KEY,
   amount DECIMAL(10,2) NOT NULL,
@@ -215,6 +216,17 @@ CREATE TABLE records (
   notes TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+###  5. Seed Initial Admin User
+
+Before starting the server, you need to create the first admin user.
+
+Since all user creation APIs are protected, we use a seed script to bootstrap the system.
+
+➤ Create seedAdmin.js in project root
+
+▶️ Run the script:
+node seedAdmin.js
 
 
 ### 5. Run the server
