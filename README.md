@@ -1,6 +1,7 @@
 # 📊 Finance Dashboard Backend
 
 ## 🚀 Overview
+
 This project is a backend system for a **Finance Dashboard** that manages financial records and provides aggregated insights for visualization.
 
 The system follows a **single-organization model**, where financial data is centrally managed and accessed by users based on their roles.
@@ -8,116 +9,127 @@ The system follows a **single-organization model**, where financial data is cent
 ---
 
 ## 🧠 Architecture
-The backend follows a **modular and scalable architecture**:
 
-- **Controllers** → Handle HTTP requests and responses  
-- **Services** → Contain business logic and validations  
-- **Models** → Manage database queries  
-- **Middleware** → Handle authentication and authorization  
+The backend is built using a **modular and scalable architecture**:
 
-This ensures **clean, maintainable, and scalable code**.
+* **Controllers** → Handle HTTP requests and responses
+* **Services** → Contain business logic and validations
+* **Models** → Manage database queries
+* **Middleware** → Handle authentication and authorization
+
+This separation ensures **maintainability, scalability, and clean code structure**.
 
 ---
 
 ## 👥 User Roles & Access Control
 
-| Role      | Permissions |
-|----------|------------|
-| **Admin**   | Full access (CRUD operations) |
-| **Analyst** | View analytics + records |
-| **Viewer**  | Read-only access |
+The system uses **Role-Based Access Control (RBAC)**:
 
-🔐 Access is enforced using authentication & authorization middleware.
+| Role        | Permissions                                           |
+| ----------- | ------------------------------------------------------|
+| **Admin**   | Full access: create, update, delete records           |
+| **Analyst** | View dashboard analytics and view financial records   |
+| **Viewer**  | View financial records (read-only)                    |
+
+> 🔐 Access is enforced using authentication and authorization middleware.
 
 ---
 
 ## 💰 Financial Records
 
-Each record contains:
+Each record includes:
 
-- `amount`
-- `type` (`income` / `expense`)
-- `category`
-- `date`
-- `notes` (optional)
+* `amount` (number)
+* `type` (`income` or `expense`)
+* `category` (string)
+* `date` (date)
+* `notes` (optional)
 
 ---
 
 ## ⚙️ Features
 
-### 👤 User Management
-- Create users  
-- View users  
-- Update users  
-- Delete users  
-- JWT-based authentication  
+### ✅ User Management
 
-### 💼 Record Management
-- Create records (**Admin only**)  
-- View records (**All roles**)  
-- Update records (**Admin only**)  
-- Delete records (**Admin only**)  
+* Create users 
+* view Users
+* Update Users
+* Delete User
+* Secure authentication using JWT
 
-**Filters:**
-- Type  
-- Category  
-- Date range  
+### ✅ Record Management
+
+* Create records (**Admin only**)
+* View records (**Admin, Analyst, Viewer**)
+* Update records (**Admin only**)
+* Delete records (**Admin only**)
+* Filter records by:
+
+  * Type
+  * Category
+  * Date range
 
 ---
 
 ### 📊 Dashboard Analytics
-- Total Income  
-- Total Expenses  
-- Net Balance  
-- Category-wise breakdown  
-- Monthly trends  
-- Recent transactions  
+
+Provides aggregated data for frontend dashboards:
+
+* Total Income
+* Total Expenses
+* Net Balance
+* Category-wise breakdown (income vs expense)
+* Monthly trends (income vs expense)
+* Recent transactions
 
 ---
 
 ## 🔐 Authentication & Security
-- JWT Authentication  
-- Protected routes  
-- Role-based authorization (RBAC)  
-- Environment variables (`.env`)  
-- Input validation  
+
+* JWT-based authentication
+* Protected routes using middleware
+* Role-based authorization
+* Secure environment variables (`.env`)
+* Input validation for data integrity
 
 ---
 
 ## 🗄️ Database
-- **MySQL (Relational DB)**
-- Optimized queries using:
-  - `SUM`
-  - `GROUP BY`
-  - `CASE`
+
+* Relational database (**MySQL**)
+* Structured schema for financial records
+* Optimized queries using SQL aggregations (`SUM`, `GROUP BY`, `CASE`)
 
 ---
 
 ## 📦 API Endpoints
 
-### 🔑 Auth
+### 🔑 Authentication
 
-POST /api/auth/login
+* `POST /api/auth/login` → User login
 
+---
 
 ### 💰 Records
 
-POST /api/records
-GET /api/records
-PUT /api/records/:id
-DELETE /api/records/:id
+* `POST /api/records` → Create record (Admin)
+* `GET /api/records` → Get records (Admin,Analyst, Viewer)
+* `PUT /api/records/:id` → Update record (Admin)
+* `DELETE /api/records/:id` → Delete record (Admin)
 
+---
 
 ### 📊 Dashboard
 
-GET /api/dashboard
-
+* `GET /api/dashboard` → Get summary analytics (Admin, Analyst)
 
 ---
 
 ## 🧪 Validation & Error Handling
 
-Example response:
+* Input validation for required fields and formats
+* Proper HTTP status codes (200, 201, 400, 401, 403, 404, 500)
+* Consistent API response structure:
 
 ```json
 {
@@ -125,87 +137,135 @@ Example response:
   "message": "Operation successful",
   "data": {}
 }
-Proper HTTP status codes
-Consistent API structure
-Graceful error handling
-🛠️ Tech Stack
-Node.js
-Express.js
-MySQL
-JWT (jsonwebtoken)
-Middleware: CORS, Morgan, Helmet
-⚙️ Setup Instructions
-1. Clone Repo
-git clone https://github.com/jevita-riya/finance-dashboard-backend.git
+```
+
+* Graceful error handling for invalid input and missing resources
+
+---
+
+## 🛠️ Tech Stack
+
+* **Node.js**
+* **Express.js**
+* **MySQL**
+* **JWT (jsonwebtoken)**
+* **Middleware:** CORS, Morgan, Helmet
+
+---
+
+## ▶️ Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone "https://github.com/jevita-riya/finance-dashboard-backend.git"
 cd finance-dashboard-backend
-2. Install Dependencies
+```
+
+### 2. Install dependencies
+
+```bash
 npm install
-3. Configure Environment
+```
 
-Create .env file:
+### 3. Configure environment variables
 
+Create a `.env` file:
+
+```env
 PORT=5000
 JWT_SECRET=your_secret_key
 
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=
+DB_PASSWORD=""
 DB_NAME=finance
-🗄️ Database Setup
-Step 1: Login to MySQL
-mysql -u root -p
-Step 2: Create Database
+```
+### 4. Setup MySQL Database
+
+Make sure your MySQL server is running (XAMPP / MySQL Workbench).
+
+> ⚠️ If your MySQL runs on a different port (e.g., 3307), add this to your `.env` file:
+```env
+DB_PORT=3307
+```
+
+#### Create Database
 CREATE DATABASE finance;
-USE finance;
-Step 3: Create Tables
+
+#### Create Tables
+Users Table: 
+
 CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  password VARCHAR(255),
-  role ENUM('admin', 'analyst', 'viewer') DEFAULT 'viewer',
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('admin','analyst','viewer') DEFAULT 'viewer',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+Records Table:
 CREATE TABLE records (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  record_id INT AUTO_INCREMENT PRIMARY KEY,
   amount DECIMAL(10,2) NOT NULL,
-  type ENUM('income', 'expense') NOT NULL,
+  type ENUM('income','expense') NOT NULL,
   category VARCHAR(100),
-  date DATE,
+  date DATE NOT NULL,
   notes TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-Step 4: Insert Admin (Optional)
-INSERT INTO users (name, email, password, role)
-VALUES ('Admin', 'admin@example.com', 'hashed_password', 'admin');
 
-⚠️ Use bcrypt hashed password
 
-▶️ Run Server
+### 5. Run the server
+
+```bash
 npm start
+```
 
-Server:
+Server will run at:
 
+```
 http://localhost:5000
-📌 Design Decisions
-Centralized data model
-RBAC over user-based isolation
-Service layer pattern
-Optimized SQL queries
-🚀 Future Enhancements
-Pagination
-Advanced filters
-Soft delete
-Swagger docs
-Testing
-Rate limiting
-📣 Conclusion
+```
+
+---
+
+## 📌 Design Decisions
+
+* **Centralized Data Model**
+  Financial data belongs to the organization rather than individual users.
+
+* **RBAC over Data Isolation**
+  Access is controlled using roles instead of user-level ownership.
+
+* **Service Layer Pattern**
+  Business logic is separated from controllers for better scalability and maintainability.
+
+* **Optimized Queries**
+  Used SQL aggregation functions for efficient dashboard calculations.
+
+---
+
+## 🚀 Future Enhancements
+
+* Pagination for large datasets
+* Advanced search and filtering
+* Soft delete functionality
+* API documentation using Swagger
+* Unit and integration testing
+* Rate limiting for security
+
+---
+
+## 📣 Conclusion
 
 This project demonstrates:
 
-Clean architecture
-RBAC implementation
-Secure authentication
-Efficient data handling
-Scalable backend design
+* Clean backend architecture
+* Role-based access control (RBAC)
+* Input validation and error handling
+* Efficient database querying and aggregation
+* Scalable and maintainable design
+
+
