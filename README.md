@@ -25,11 +25,11 @@ This separation ensures **maintainability, scalability, and clean code structure
 
 The system uses **Role-Based Access Control (RBAC)**:
 
-| Role        | Permissions                                 |
-| ----------- | ------------------------------------------- |
-| **Admin**   | Full access: create, update, delete records |
-| **Analyst** | View dashboard analytics                    |
-| **Viewer**  | View financial records (read-only)          |
+| Role        | Permissions                                           |
+| ----------- | ------------------------------------------------------|
+| **Admin**   | Full access: create, update, delete records           |
+| **Analyst** | View dashboard analytics and view financial records   |
+| **Viewer**  | View financial records (read-only)                    |
 
 > 🔐 Access is enforced using authentication and authorization middleware.
 
@@ -44,16 +44,23 @@ Each record includes:
 * `category` (string)
 * `date` (date)
 * `notes` (optional)
-* `created_by` (admin user ID for audit tracking)
 
 ---
 
 ## ⚙️ Features
 
+### ✅ User Management
+
+* Create users 
+* view Users
+* Update Users
+* Delete User
+* Secure authentication using JWT
+
 ### ✅ Record Management
 
 * Create records (**Admin only**)
-* View records (**Admin, Viewer**)
+* View records (**Admin, Analyst, Viewer**)
 * Update records (**Admin only**)
 * Delete records (**Admin only**)
 * Filter records by:
@@ -106,7 +113,7 @@ Provides aggregated data for frontend dashboards:
 ### 💰 Records
 
 * `POST /api/records` → Create record (Admin)
-* `GET /api/records` → Get records (Admin, Viewer)
+* `GET /api/records` → Get records (Admin,Analyst, Viewer)
 * `PUT /api/records/:id` → Update record (Admin)
 * `DELETE /api/records/:id` → Delete record (Admin)
 
@@ -151,7 +158,7 @@ Provides aggregated data for frontend dashboards:
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-link>
+git clone "https://github.com/jevita-riya/finance-dashboard-backend.git"
 cd finance-dashboard-backend
 ```
 
@@ -171,8 +178,8 @@ JWT_SECRET=your_secret_key
 
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=finance_db
+DB_PASSWORD=""
+DB_NAME=finance
 ```
 
 ### 4. Run the server
