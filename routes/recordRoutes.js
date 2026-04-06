@@ -3,14 +3,19 @@ const router = express.Router();
 
 const recordController = require("../controllers/recordController");
 const verifyToken = require("../middleware/authMiddleware");
-const checkRole = require("../middleware/roleMiddleware");
+const authorizeRoles = require("../middleware/roleMiddleware");
 
-router.post("/", verifyToken, checkRole(["admin"]), recordController.createRecord);
 
-router.get("/", verifyToken, checkRole(["viewer","analyst", "admin"]), recordController.getRecords);
+router.post("/", verifyToken, authorizeRoles("admin"), recordController.createRecord);
 
-router.put("/:id", verifyToken, checkRole(["admin"]), recordController.updateRecord);
+router.get(
+  "/",
+  verifyToken,
+  authorizeRoles("viewer", "analyst", "admin"),
+  recordController.getRecords
+);
+router.put("/:id", verifyToken, authorizeRoles("admin"), recordController.updateRecord);
 
-router.delete("/:id", verifyToken, checkRole(["admin"]), recordController.deleteRecord);
+router.delete("/:id", verifyToken, authorizeRoles("admin"), recordController.deleteRecord);
 
 module.exports = router;

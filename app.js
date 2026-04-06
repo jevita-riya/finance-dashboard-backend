@@ -11,7 +11,8 @@ const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const recordRoutes = require("./routes/recordRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
-
+const swaggerSetup = require("./swagger");
+swaggerSetup(app);
 // Middleware
 app.use(cors());
 app.use(express.json());

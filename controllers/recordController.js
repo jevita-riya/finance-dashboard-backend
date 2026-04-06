@@ -65,7 +65,10 @@ const deleteRecord = async (req, res) => {
   try {
     await recordService.deleteRecord(req.params.id);
 
-    res.status(204).send();
+    res.status(200).json({
+      success: true,
+      message: "Record deleted successfully",
+    });
   } catch (error) {
     res.status(400).json({
       success: false,

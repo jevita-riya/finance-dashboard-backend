@@ -212,19 +212,22 @@ CREATE TABLE users (
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role ENUM('admin','analyst','viewer') DEFAULT 'viewer',
+  status ENUM('active','inactive') DEFAULT 'active',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 Records Table:
 
 CREATE TABLE records (
-  record_id INT AUTO_INCREMENT PRIMARY KEY,
-  amount DECIMAL(10,2) NOT NULL,
-  type ENUM('income','expense') NOT NULL,
-  category VARCHAR(100),
-  date DATE NOT NULL,
-  notes TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    record_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    amount DECIMAL(10,2),
+    type ENUM('income','expense'),
+    category VARCHAR(50),
+    date DATE,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 ###  5. Seed Initial Admin User

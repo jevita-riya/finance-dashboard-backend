@@ -7,6 +7,9 @@ const db = require("./db/dbConfig");
 const seedAdmin = async () => {
   try {
     console.log("🚀 Seeding admin...");
+    console.log("DB USER:", process.env.DB_USER);
+console.log("DB PASS:", process.env.DB_PASSWORD);
+console.log("DB NAME:", process.env.DB_NAME);
 
     // 1. Check if admin already exists
     const [rows] = await db.query(

@@ -22,7 +22,7 @@ const getSummary = async () => {
 
     // Recent transactions
     const [recentResult] = await db.query(`
-        SELECT id, amount, type, category, date 
+        SELECT record_id, amount, type, category, date 
         FROM records 
         ORDER BY created_at DESC 
         LIMIT 5
